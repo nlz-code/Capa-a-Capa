@@ -8,6 +8,10 @@ const products = [
   ['Figura Doc Brown Regreso al Futuro','Figuras',25,['figura doc brown/imaen1.jpeg','figura doc brown/imagen2.jpeg','figura doc brown/imagen3.jpeg','figura doc brown/imagen4.jpeg'],'https://es.wallapop.com/item/figura-doc-brown-regreso-al-futuro-1289380629'],
   ['Figura Gengar Pokémon morado','Figuras',18,['Figura Gengar Pokémon Morado/imagen1.jpeg','Figura Gengar Pokémon Morado/imagen2.jpeg','Figura Gengar Pokémon Morado/imagen3.jpeg','Figura Gengar Pokémon Morado/imagen4.jpeg'],'https://es.wallapop.com/item/figura-gengar-pokemon-morado-1291614025'],
   ['Figura Charmeleon 20 cm','Figuras',20,['Figura Charmeleon/imagen1.jpeg','Figura Charmeleon/imagen2.jpeg','Figura Charmeleon/imagen3.jpeg','Figura Charmeleon/imagen4.jpeg'],'https://es.wallapop.com/item/figura-charmeleon-20cm-1293502309'],
+  ['Oferta · Pack Charmeleon y Charmander','Figuras',35,['Ofertas/Pack Charmeleon y Charmander/imagen1.jpeg','Ofertas/Pack Charmeleon y Charmander/imagen2.jpeg'],'https://es.wallapop.com/item/oferta-pack-charmeleon-y-charmander-1294149389'],
+  ['Figura Umbreon 26 cm','Figuras',27,['Figura Umbreon/imagen1.jpeg','Figura Umbreon/imagen2.jpeg','Figura Umbreon/imagen3.jpeg','Figura Umbreon/imagen4.jpeg','Figura Umbreon/imagen5.jpeg','Figura Umbreon/imagen6.jpeg','Figura Umbreon/imagen7.jpeg','Figura Umbreon/imagen8.jpeg'],'https://es.wallapop.com/item/figura-umbreon-26cm-1294150249'],
+  ['Figura Diglett 10 cm','Figuras',12,['Figura Diglett/imagen1.jpeg','Figura Diglett/imagen2.jpeg','Figura Diglett/imagen3.jpeg','Figura Diglett/imagen4.jpeg'],'https://es.wallapop.com/item/figura-diglett-10cm-1294152057'],
+  ['Figura Toad de 21 cm','Figuras',20,['Figura Toad/imagen1.jpeg','Figura Toad/imagen2.jpeg','Figura Toad/imagen3.jpeg','Figura Toad/imagen4.jpeg','Figura Toad/imagen5.jpeg','Figura Toad/imagen6.jpeg'],'https://es.wallapop.com/item/figura-de-toad-21-cm-1294266505'],
   ['Árbol expositor de joyas','Organización',12,['arbol joyas/imagen1.jpeg','arbol joyas/imagen2.jpeg','arbol joyas/imagen3.jpeg'],'https://es.wallapop.com/item/arbol-expositor-de-joyas-1289470120'],
   ['Lámpara Marc Márquez 93','Decoración',15,['marquez/imagen1.jpeg','marquez/imagen2.jpeg','marquez/imagen3.jpeg','marquez/imagen4.jpeg'],'https://es.wallapop.com/item/lampara-marc-marquez-93-1287703048'],
   ['Calendario MotoGP 2026','Decoración',12.5,['MotoGP/imagen1.jpeg','MotoGP/imagen2.jpeg','MotoGP/imagen3.jpeg'],'https://es.wallapop.com/item/calendario-circuitos-motogp-2026-1287130788'],
@@ -21,8 +25,8 @@ const products = [
   ['Soporte para juegos Nintendo Switch','Accesorios',7,['soporte  juegos nintendo/imagen1.jpeg','soporte  juegos nintendo/imagen2.jpeg','soporte  juegos nintendo/imagen3.jpeg','soporte  juegos nintendo/imagen4.jpeg'],'https://es.wallapop.com/item/soporte-para-juegos-nintendo-switch-1290489676'],
   ['Soporte para ordenador portátil','Accesorios',8,['soporte ordenador portátil/imagen1.jpeg','soporte ordenador portátil/imagen2.jpeg','soporte ordenador portátil/imagen3.jpeg','soporte ordenador portátil/imagen4.jpeg','soporte ordenador portátil/imagen5.jpeg','soporte ordenador portátil/imagen6.jpeg'],'https://es.wallapop.com/item/soporte-para-ordenador-portatil-1291609057'],
   ['Soporte mando PS5 personalizado','Personalizados','Precio a consultar',['personalizaciones/mando malaga paco/imagen1.jpeg','personalizaciones/mando malaga paco/imagen2.jpeg','personalizaciones/mando malaga paco/imagen3.jpeg','personalizaciones/mando malaga paco/imagen4.jpeg'],'https://es.wallapop.com/item/soporte-mando-ps5-personalizado-malaga-cf-1289709145'],
-  ['Soporte mando Pokéball','Accesorios',4,['pokeball/imagen1.jpeg','pokeball/imagen2.jpeg','pokeball/imagen3.jpeg','pokeball/imagen4.jpeg','pokeball/imagen5.jpeg'],'https://es.wallapop.com/item/soporte-mando-pokeball-1287474874']
-].map(([name, category, price, images, url]) => ({ name, category, price, images, url, index: 0 }));
+  ['Soporte mando Pokéball','Accesorios',4,['pokeball/imagen1.jpeg','pokeball/imagen2.jpeg','pokeball/imagen3.jpeg','pokeball/imagen4.jpeg','pokeball/imagen5.jpeg'],'https://es.wallapop.com/item/soporte-mando-pokeball-1294152580']
+].map(([name, category, price, images, url]) => ({ name, category, price, images, url, index: 0, offer: name.startsWith('Oferta') }));
 
 const euro = n => n.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
 const grid = document.querySelector('#product-grid');
@@ -31,12 +35,12 @@ const search = document.querySelector('#search');
 let category = 'Todo';
 
 function renderFilters() {
-  filters.innerHTML = ['Todo', ...new Set(products.map(p => p.category))]
+  filters.innerHTML = ['Todo', 'Ofertas', ...new Set(products.map(p => p.category))]
     .map(c => `<button class="filter ${c === category ? 'active' : ''}" data-category="${c}">${c}</button>`).join('');
 }
 
 function render() {
-  const list = products.filter(p => (category === 'Todo' || p.category === category) && p.name.toLowerCase().includes(search.value.toLowerCase()));
+  const list = products.filter(p => (category === 'Todo' || (category === 'Ofertas' ? p.offer : p.category === category)) && p.name.toLowerCase().includes(search.value.toLowerCase()));
   document.querySelector('#product-total').textContent = `${list.length} ${list.length === 1 ? 'pieza' : 'piezas'} disponibles`;
   grid.innerHTML = list.map(p => `<article class="product"><div class="product-media"><img src="${p.images[p.index]}" alt="${p.name}"><span class="tag">${p.category}</span>${p.images.length > 1 ? `<div class="gallery-controls"><button data-name="${p.name}" data-step="-1" aria-label="Foto anterior">‹</button><button data-name="${p.name}" data-step="1" aria-label="Foto siguiente">›</button></div>` : ''}</div><div class="product-body"><span class="product-category">Impresión 3D</span><h3>${p.name}</h3><div class="product-bottom"><span class="price">${p.price === null ? 'Ver precio en Wallapop' : typeof p.price === 'number' ? euro(p.price) : p.price}</span><a class="buy-wallapop" href="${p.url}" target="_blank" rel="noreferrer">${p.category === 'Personalizados' ? 'Ver ejemplo ↗' : 'Comprar en Wallapop ↗'}</a></div></div></article>`).join('');
   document.querySelector('#empty-state').hidden = Boolean(list.length);
@@ -53,3 +57,8 @@ document.addEventListener('click', e => {
 search.addEventListener('input', render);
 renderFilters();
 render();
+
+const featuredOffer = products.find(p => p.offer);
+if (featuredOffer) {
+  document.querySelector('#offer-feature').innerHTML = `<a class="offer-card" href="${featuredOffer.url}" target="_blank" rel="noreferrer"><img src="${featuredOffer.images[0]}" alt="${featuredOffer.name}"><div class="offer-card-content"><span class="offer-badge">OFERTA ESPECIAL</span><h3>${featuredOffer.name.replace('Oferta · ','')}</h3><span class="offer-price">${euro(featuredOffer.price)}</span><small>Ver oferta en Wallapop ↗</small></div></a>`;
+}
