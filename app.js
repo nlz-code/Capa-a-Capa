@@ -37,6 +37,7 @@ const products = [
   ['Pack 3 Figuras Pokémon OFERTA', 'Figuras', 55, ['Ofertas/3 pokemons/imagen1.jpeg', 'Ofertas/3 pokemons/imagen2.jpeg', 'Ofertas/3 pokemons/imagen3.jpeg', 'Ofertas/3 pokemons/imagen4.jpeg', 'Ofertas/3 pokemons/imagen5.jpeg', 'Ofertas/3 pokemons/imagen6.jpeg', 'Ofertas/3 pokemons/imagen7.jpeg'], 'https://es.wallapop.com/item/pack-3-figuras-pokemon-oferta-1298067493'],
   ['Soporte Mando Personalizado FC Barcelona', 'Accesorios', 13, ['Soporte Mando Personalizado FC Barcelona/imagen1.jpeg', 'Soporte Mando Personalizado FC Barcelona/imagen2.jpeg', 'Soporte Mando Personalizado FC Barcelona/imagen3.jpeg'], 'https://es.wallapop.com/item/soporte-mando-personalizado-fc-barcelona-1298189246'],
   ['Figura Ryu Chibi Street Fighter', 'Figuras', 16, ['Figura Ryu Chibi Street Fighter/imagen1.jpeg', 'Figura Ryu Chibi Street Fighter/imagen2.jpeg', 'Figura Ryu Chibi Street Fighter/imagen3.jpeg', 'Figura Ryu Chibi Street Fighter/imagen4.jpeg'], 'https://es.wallapop.com/item/figura-ryu-chibi-street-fighter-1299077554'],
+  ['Figura Pantera Rosa 25cm', 'Figuras', 15, ['Figura Pantera Rosa 25cm/imagen1.jpeg', 'Figura Pantera Rosa 25cm/imagen2.jpeg', 'Figura Pantera Rosa 25cm/imagen3.jpeg', 'Figura Pantera Rosa 25cm/imagen4.jpeg'], 'https://es.wallapop.com/item/figura-pantera-rosa-25cm-1299418845'],
 
 ].map(([name, category, price, images, url]) => ({ name, category, price, images, url, index: 0, offer: name.startsWith('Oferta') }));
 
